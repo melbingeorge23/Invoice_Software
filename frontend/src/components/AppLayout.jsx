@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   LayoutDashboard,
   FilePlus,
@@ -9,7 +10,9 @@ import {
   Building2,
   BarChart3,
   ClipboardList,
-  UserCog
+  UserCog,
+  Menu,
+  X
 } from "lucide-react";
 
 function AppLayout({
@@ -19,6 +22,8 @@ function AppLayout({
   onLogout,
   children
 }) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const isAdmin = currentUser?.role === "ADMIN";
 
   const menuItems = [
@@ -35,11 +40,11 @@ function AppLayout({
       allowed: true
     },
     {
-  id: "customer-statement",
-  label: "Customer Statement",
-  icon: ClipboardList,
-  allowed: true
-},
+      id: "customer-statement",
+      label: "Customer Statement",
+      icon: ClipboardList,
+      allowed: true
+    },
     {
       id: "create-invoice",
       label: "Create Invoice",
@@ -65,22 +70,48 @@ function AppLayout({
       allowed: isAdmin
     },
     {
-        id: "company-profile",
-        label: "Company Profile",
-        icon: Building2,
-        allowed: isAdmin
+      id: "company-profile",
+      label: "Company Profile",
+      icon: Building2,
+      allowed: isAdmin
     },
     {
-  id: "user-management",
-  label: "User Management",
-  icon: UserCog,
-  allowed: isAdmin
-}
+      id: "user-management",
+      label: "User Management",
+      icon: UserCog,
+      allowed: isAdmin
+    }
   ];
+
+  const handleMenuClick = (pageId) => {
+    setActivePage(pageId);
+    setMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    setMobileMenuOpen(false);
+    onLogout();
+  };
 
   return (
     <div className="premium-layout">
-      <aside className="sidebar">
+      {mobileMenuOpen && (
+        <div
+          className="mobile-sidebar-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
+      <aside className={mobileMenuOpen ? "sidebar mobile-open" : "sidebar"}>
+        <div className="mobile-sidebar-close-row">
+          <button
+            className="mobile-close-btn"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <X size={20} />
+          </button>
+        </div>
+
         <div className="brand">
           <div className="brand-icon">
             <ReceiptText size={26} />
@@ -102,7 +133,7 @@ function AppLayout({
                 <button
                   key={item.id}
                   className={activePage === item.id ? "menu-item active" : "menu-item"}
-                  onClick={() => setActivePage(item.id)}
+                  onClick={() => handleMenuClick(item.id)}
                 >
                   <Icon size={18} />
                   <span>{item.label}</span>
@@ -125,25 +156,34 @@ function AppLayout({
 
       <section className="main-shell">
         <header className="topbar">
-          <div>
-            <h1>
-              {activePage === "dashboard" && "Dashboard"}
-              {activePage === "reports" && "Reports"}
-              {activePage === "customer-statement" && "Customer Statement"}
-              {activePage === "create-invoice" && "Create Invoice"}
-              {activePage === "invoices" && "Invoice Management"}
-              {activePage === "customers" && "Customer Master"}
-              {activePage === "products" && "Product Master"}
-              {activePage === "company-profile" && "Company Profile"}
-              {activePage === "user-management" && "User Management"}
-            </h1>
+          <div className="mobile-top-left">
+            <button
+              className="mobile-menu-btn"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <Menu size={22} />
+            </button>
 
-            <p>
-              Manage billing, customers, products, reports, and invoices.
-            </p>
+            <div>
+              <h1>
+                {activePage === "dashboard" && "Dashboard"}
+                {activePage === "reports" && "Reports"}
+                {activePage === "customer-statement" && "Customer Statement"}
+                {activePage === "create-invoice" && "Create Invoice"}
+                {activePage === "invoices" && "Invoice Management"}
+                {activePage === "customers" && "Customer Master"}
+                {activePage === "products" && "Product Master"}
+                {activePage === "company-profile" && "Company Profile"}
+                {activePage === "user-management" && "User Management"}
+              </h1>
+
+              <p>
+                Manage billing, customers, products, reports, and invoices.
+              </p>
+            </div>
           </div>
 
-          <button className="logout-btn" onClick={onLogout}>
+          <button className="logout-btn" onClick={handleLogout}>
             <LogOut size={18} />
             Logout
           </button>
