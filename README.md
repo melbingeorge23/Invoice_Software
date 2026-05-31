@@ -226,7 +226,7 @@ Below are the core screens for the invoice application. The images are stored in
 ## 🧑‍💻 Author
 
 - **Melbin George**
-- GitHub: [@melbingeorge17](https://github.com/melbingeorge17)
+- GitHub: [@melbingeorge23](https://github.com/melbingeorge23)
 
 ---
 
