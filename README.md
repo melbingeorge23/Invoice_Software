@@ -1,8 +1,12 @@
 # Invoice Software
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-View%20App-blue?style=for-the-badge)](https://invoice-software-zeta.vercel.app/)
+
 A polished full-stack invoice management and billing application built with **Spring Boot**, **React**, **MySQL**, **JWT Authentication**, **PDF generation**, and **role-based access control**.
 
 This system enables businesses to manage invoices, customers, products, payments, reports, overdue invoices, and branding through a company profile.
+
+> 🌐 **Deployed application:** [https://invoice-software-zeta.vercel.app/](https://invoice-software-zeta.vercel.app/)
 
 ---
 
