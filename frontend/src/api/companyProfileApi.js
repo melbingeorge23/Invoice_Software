@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_BASE_URL } from "./apiConfig";
 
-const API_BASE_URL = "http://localhost:8080/api/company-profile";
+const COMPANY_PROFILE_API_URL = `${API_BASE_URL}/api/company-profile`;
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
@@ -13,12 +14,12 @@ const getAuthHeaders = () => {
 };
 
 export const getCompanyProfile = async () => {
-  const response = await axios.get(API_BASE_URL, getAuthHeaders());
+  const response = await axios.get(COMPANY_PROFILE_API_URL, getAuthHeaders());
   return response.data;
 };
 
 export const saveCompanyProfile = async (profileData) => {
-  const response = await axios.post(API_BASE_URL, profileData, getAuthHeaders());
+  const response = await axios.post(COMPANY_PROFILE_API_URL, profileData, getAuthHeaders());
   return response.data;
 };
 
@@ -30,7 +31,7 @@ export const uploadCompanyLogo = async (file) => {
 
   const token = localStorage.getItem("token");
 
-  const response = await axios.post(`${API_BASE_URL}/logo`, formData, {
+  const response = await axios.post(`${COMPANY_PROFILE_API_URL}/logo`, formData, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "multipart/form-data"
@@ -43,7 +44,7 @@ export const uploadCompanyLogo = async (file) => {
 export const fetchCompanyLogoBlobUrl = async () => {
   const token = localStorage.getItem("token");
 
-  const response = await axios.get(`${API_BASE_URL}/logo`, {
+  const response = await axios.get(`${COMPANY_PROFILE_API_URL}/logo`, {
     responseType: "blob",
     headers: {
       Authorization: `Bearer ${token}`

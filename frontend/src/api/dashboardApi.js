@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_BASE_URL } from "./apiConfig";
 
-const API_BASE_URL = "http://localhost:8080/api/dashboard";
+const DASHBOARD_API_URL = `${API_BASE_URL}/api/dashboard`;
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem("token");
@@ -13,6 +14,6 @@ const getAuthHeaders = () => {
 };
 
 export const getDashboardSummary = async () => {
-  const response = await axios.get(`${API_BASE_URL}/summary`, getAuthHeaders());
+  const response = await axios.get(`${DASHBOARD_API_URL}/summary`, getAuthHeaders());
   return response.data;
 };

@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/company-profile")
-@CrossOrigin(origins = "http://localhost:5173")
 public class CompanyProfileController {
 
     private final CompanyProfileService companyProfileService;

@@ -36,13 +36,13 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> {})
                 .authorizeHttpRequests(auth -> auth
-        //              .requestMatchers(
-        //         "/",
-        //         "/index.html",
-        //         "/assets/**",
-        //         "/vite.svg",
-        //         "/favicon.ico"
-        // ).permitAll()
+                     .requestMatchers(
+                "/",
+                "/index.html",
+                "/assets/**",
+                "/vite.svg",
+                "/favicon.ico"
+        ).permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/dashboard/**").hasAnyRole("ADMIN", "STAFF")
                         .requestMatchers("/api/invoices/**").hasAnyRole("ADMIN", "STAFF")
